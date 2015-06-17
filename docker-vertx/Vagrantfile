@@ -1,0 +1,32 @@
+# -*- mode: ruby -*-
+# vi: set ft=ruby :
+
+Vagrant.configure("2") do |config|
+
+	config.vm.define "vertxVagrant" do |host|
+		host.vm.provider "docker" do |d|
+			##Docker container configuration and launch configuration
+   	  		d.build_dir = "."
+   	  		##check out ssh in container, not working
+      		#d.has_ssh = true
+      		d.build_args = ["-t=vertxdev"]
+      		##IE : 8181 from boot2docker is mapped to 8080 inside the container
+      		d.ports = ["8181:8080"]
+      		d.name = "vertxdev"
+      		d.remains_running = true
+      		##startup command
+      		d.cmd = ["vertx", "run", "src/vertx-examples/src/raw/java/httphelloworld/HelloWorldServer.java"]
+      		##mounting boot2docker VM volume to the container, not used
+      		#d.volumes = ["/home/docker:/usr/local/src"]
+      		d.vagrant_vagrantfile = "../docker-host/Vagrantfile"
+  		end
+
+  		##ssh configuration for vertxVagrant but not the docker container
+  		host.ssh.username = "docker"
+  		host.ssh.password = "tcuser"
+  		##mdp : tcuser
+   		host.ssh.host = "127.0.0.1"
+   		host.ssh.port = 22
+   		host.vm.boot_timeout = 30
+	end  
+end
