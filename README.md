@@ -7,8 +7,9 @@ Test project to deploy docker containers with vagrant
 - Install rsync and ssh package with cygwin
 
 ##Usage
-Run the following command using cygwin (or else if rsync and ssh are available) : 
 
-`vagrant up`
+###docker-vertex
+
+Run the `vagrant up` command in the *docker-vertex* folder using cygwin (or else if rsync and ssh are available). 
 
 Then you can acces to a minimalist http server with the address : `http://localhost:8181`
