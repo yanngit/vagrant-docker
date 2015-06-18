@@ -15,9 +15,11 @@ RUN \
 ENV PATH /usr/local/vertx/vert.x-2.1.2/bin:$PATH
  
 RUN mkdir -p /usr/local/src
-WORKDIR /vagrant
+WORKDIR /app
 
 #EXPOSE 8080
+
+RUN git clone https://github.com/vert-x/vertx-examples.git
 
 
 #Try to run ssh demon
