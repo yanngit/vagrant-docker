@@ -1,0 +1,23 @@
+# -*- mode: ruby -*-
+# vi: set ft=ruby :
+
+Vagrant.configure("2") do |config|
+
+	config.vm.define "nodeVagrant" do |host|
+  		host.vm.provider "docker" do |d|
+  		  d.image = "node:latest"
+  		  d.name = "nodedev"
+  		  d.cmd = ["node", "/vagrant/app.js"]
+  		  d.ports = ["8282:80"]
+  		  d.remains_running = true
+  		  d.vagrant_vagrantfile = "../docker-host/Vagrantfile"
+  		end
+  		##ssh configuration for vertxVagrant but not the docker container
+  		host.ssh.username = "docker"
+  		#host.ssh.password = "tcuser"
+  		##mdp : tcuser
+   		host.ssh.host = "127.0.0.1"
+   		host.ssh.port = 22
+   		host.vm.boot_timeout = 30
+	end	
+end

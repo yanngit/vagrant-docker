@@ -1,30 +1,45 @@
-# Copied from https://github.com/mitchellh/vagrant/blob/master/plugins/providers/docker/hostmachine/Vagrantfile
+## Copied from https://github.com/mitchellh/vagrant/blob/master/plugins/providers/docker/hostmachine/Vagrantfile
+
+##replace this script by a file
+$script = <<SCRIPT
+  echo Provisioning ...
+  udhcpc
+  /etc/init.d/docker restart
+SCRIPT
 
 Vagrant.configure("2") do |config|
 
   config.vm.box = "mitchellh/boot2docker"
 
   config.vm.provider "virtualbox" do |v|
-    # On VirtualBox, we don't have guest additions or a functional vboxsf
-    # in TinyCore Linux, so tell Vagrant that so it can be smarter.
+    ## On VirtualBox, we don't have guest additions or a functional vboxsf
+    ## in TinyCore Linux, so tell Vagrant that so it can be smarter.
     #v.check_guest_additions = false
     v.functional_vboxsf     = false
   end
 
-  # b2d doesn't support NFS
+  ##update the resolv.conf file for correct DNS
+  config.vm.provision "shell", inline: $script
+
+  ##b2d doesn't support NFS
   config.nfs.functional = false
 
+  ##Vertx port
   config.vm.network "forwarded_port",
     guest: 8181, host: 8181
 
-  #synced with the docker container but not the host (windows)...
+  ##Nodejs port
+  config.vm.network "forwarded_port",
+    guest: 8282, host: 8282
+
+  ##synced with the docker container but not the host (windows)...
   config.vm.synced_folder ".", "/docker-host"
 
   ##Already done by vagrant ??
   #config.vm.network "forwarded_port",
   #  guest: 2222, host: 22
 
-  # not available in tinycore linux (boot2docker)
+  ## not available in tinycore linux (boot2docker)
   #config.vm.hostname = "Docker-host-VM"
 
 end

@@ -27,8 +27,8 @@ Vagrant.configure("2") do |config|
   		host.ssh.username = "docker"
   		#host.ssh.password = "tcuser"
   		##mdp : tcuser
-   		#host.ssh.host = "127.0.0.1"
-   		#host.ssh.port = 22
+   		host.ssh.host = "127.0.0.1"
+   		host.ssh.port = 22
    		host.vm.boot_timeout = 30
 	end  
 end
