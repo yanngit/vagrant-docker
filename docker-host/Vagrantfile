@@ -7,7 +7,7 @@ Vagrant.configure("2") do |config|
   config.vm.provider "virtualbox" do |v|
     # On VirtualBox, we don't have guest additions or a functional vboxsf
     # in TinyCore Linux, so tell Vagrant that so it can be smarter.
-    v.check_guest_additions = false
+    #v.check_guest_additions = false
     v.functional_vboxsf     = false
   end
 
@@ -17,7 +17,8 @@ Vagrant.configure("2") do |config|
   config.vm.network "forwarded_port",
     guest: 8181, host: 8181
 
-  config.vm.synced_folder ".", "/app"
+  #synced with the docker container but not the host (windows)...
+  config.vm.synced_folder ".", "/docker-host"
 
   ##Already done by vagrant ??
   #config.vm.network "forwarded_port",

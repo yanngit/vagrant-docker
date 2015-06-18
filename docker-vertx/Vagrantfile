@@ -18,12 +18,11 @@ Vagrant.configure("2") do |config|
           ##DEFINE ENVIRONMENT VARIABLE
       		##startup command
       		d.cmd = ["vertx", "run", "vertx-examples/src/raw/java/httphelloworld/HelloWorldServer.java"]
-      		##mounting boot2docker VM volume to the container, not used
-      		d.volumes = ["/app:/app"]
+      		##mounting boot2docker VM volume to the container, ONE WAY rsync ! 
+      		d.volumes = ["/docker-host:/docker-host"]
       		d.vagrant_vagrantfile = "../docker-host/Vagrantfile"
 
   		end
-
   		##ssh configuration for vertxVagrant but not the docker container
   		host.ssh.username = "docker"
   		#host.ssh.password = "tcuser"
