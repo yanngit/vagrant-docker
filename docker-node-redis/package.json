@@ -1,0 +1,10 @@
+{
+  "name": "docker-node-redis",
+  "version": "0.0.1",
+  "description": "A simple node app backed with a redis database. Each part of the app is running in a docker container and is deployed with vagrant.",
+  "main": "app.js",
+  "dependencies":{
+    "redis" : "*",
+    "express" : "*"
+  }
+}

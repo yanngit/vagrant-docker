@@ -32,6 +32,10 @@ Vagrant.configure("2") do |config|
   config.vm.network "forwarded_port",
     guest: 8282, host: 8282
 
+  #Nodejs-redis port
+  config.vm.network :forwarded_port,
+    guest: 8383, host: 8383
+
   ##synced with the docker container but not the host (windows)...
   config.vm.synced_folder ".", "/docker-host"
 

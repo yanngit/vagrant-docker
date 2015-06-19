@@ -1,0 +1,26 @@
+VAGRANTFILE_API_VERSION = "2"
+ENV['VAGRANT_DEFAULT_PROVIDER'] = 'docker'
+
+Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
+    config.vm.define "redis" do |redis|
+        redis.vm.provider 'docker' do |d|
+            d.image  = 'redis:latest'
+            #Comment the line below if you are running on a linux host
+            d.vagrant_vagrantfile = "../docker-host/Vagrantfile"
+            d.name   = 'redis'
+            d.remains_running = true
+        end
+    end
+    config.vm.define "nodeRedis" do |nodeRedis|
+    	  nodeRedis.vm.provider "docker" do |d|
+            d.name = 'nodeRedis'
+      	    d.build_dir = "."
+            ##Comment the line below if you are running on a linux host
+      	    d.vagrant_vagrantfile = "../docker-host/Vagrantfile"
+      	    d.ports = ["8383:5000"]
+            ##link containers name:alias
+      	    d.link('redis:redis')
+            d.remains_running = true
+    	  end
+    end
+end

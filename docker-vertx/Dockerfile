@@ -20,4 +20,4 @@ WORKDIR /vagrant
 
 ##Try to run ssh demon
  
-CMD ["bash"]
+CMD ["vertx run vertx-examples/src/raw/java/httphelloworld/HelloWorldServer.java"]
