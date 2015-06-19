@@ -12,6 +12,6 @@ app.get('/', function(req, res) {
     status: redis ? "ok" : "not ok"
   });
 });
-var port = process.env.HTTP_PORT || 5000;
+var port = process.env.HTTP_PORT;
 server.listen(port);
 console.log('Listening on port ' + port);

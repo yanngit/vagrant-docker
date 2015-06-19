@@ -18,9 +18,12 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
             ##Comment the line below if you are running on a linux host
       	    d.vagrant_vagrantfile = "../docker-host/Vagrantfile"
       	    d.ports = ["8383:5000"]
-            ##link containers name:alias
+            ##link containers name:alias, by passing env variable like REDIS_NAME, REDIS_PORT, REDIS_PORT_6379_TCP, REDIS_PORT_6379_TCP_ADDR ... 
       	    d.link('redis:redis')
             d.remains_running = true
+            d.env = {
+                HTTP_PORT: "5000"
+            }
     	  end
     end
 end
